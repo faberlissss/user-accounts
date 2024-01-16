@@ -55,21 +55,14 @@ let users = [
 }
 ]
 console.log('Вивести масив телефонних номерів користувачів, у яких баланс більше 2000 доларів');
-let phoneNumber = [];
-for (let y = 0; y < users.length; y++){
-    let user = users[y];
-    let balance = user.balance.split('$').join('').split(',').join('');
-    if (balance > 2000) {
-        phoneNumber.push(user.phone);
-    }
-}
-console.log(phoneNumber);
+let balanceUser = users.filter(user => {
+    let balance = Number(user.balance.replace(/\$|,/g, ''));
+    return balance > 2000;
+})
+let phoneNum=users.map(user => user.phone);
+console.log(balanceUser);
 console.log('Знайти суму всіх балансів користувачів');
-let sumBalance = 0;
-for (let g = 0; g < users.length; g++) {
-    let balance = Number(users[g].balance.split('$').join('').split(',').join(''));
-    sumBalance = sumBalance + balance;
-}
+let sumBalance = users.map(user => Number(user.balance.replace(/\$|,/g, ''))).reduce((sum, balance) => sum + balance);
 console.log(sumBalance);
 
 
